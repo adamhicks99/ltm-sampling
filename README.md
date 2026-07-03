@@ -40,6 +40,13 @@ Raw records also contain dataset split coordinates, seed, execution order,
 TabFM revision, model settings, row counts, each timing component, and a
 hardware/software fingerprint.
 
+## Experiment archive
+
+Tracked experiment protocols, configurations, results, and notes live under
+[`experiments/`](experiments/README.md). A completed experiment is immutable;
+material methodology changes receive a new numbered folder so conclusions stay
+connected to the exact evidence that produced them.
+
 ## Setup
 
 The project uses Python 3.12 and [uv](https://docs.astral.sh/uv/). The PyTorch
@@ -100,6 +107,8 @@ The included methods are:
 - `random`: uniform sampling without replacement;
 - `stratified`: class-preserving sampling for classification and target-quantile
   sampling for regression.
+- `knn`: nearest-neighbor redundancy pruning with class or regression-quantile
+  preservation.
 
 ## Reproducibility boundaries
 

@@ -1,0 +1,40 @@
+[benchmark]
+seeds = [0]
+warmup_runs = 0
+output = "experiments/001-knn-redundancy-50/results/raw.jsonl"
+fail_fast = true
+
+[model]
+backend = "pytorch"
+preset = "default"
+n_estimators = 4
+batch_size = 1
+device = "auto"
+
+[[datasets]]
+name = "diabetes"
+openml_task_id = 363629
+problem_type = "classification"
+repeat = 0
+fold = 0
+sample = 0
+
+[[datasets]]
+name = "maternal_health_risk"
+openml_task_id = 363685
+problem_type = "classification"
+repeat = 0
+fold = 0
+sample = 0
+
+[[samplers]]
+name = "full"
+method = "full"
+
+[[samplers]]
+name = "knn-redundancy-50"
+method = "knn"
+fraction = 0.50
+
+[samplers.params]
+n_neighbors = 5
