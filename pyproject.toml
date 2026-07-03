@@ -19,6 +19,7 @@ dependencies = [
 
 [project.optional-dependencies]
 pytorch = [
+  "safetensors>=0.4.3",
   "tabfm[pytorch] @ git+https://github.com/google-research/tabfm.git@5ee6cd7829b5a4fdfd7e2a266259df733d40d036",
 ]
 jax = [

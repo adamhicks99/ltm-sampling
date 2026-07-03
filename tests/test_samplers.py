@@ -1,7 +1,11 @@
 import numpy as np
 import pandas as pd
 
-from ltm_sampling.samplers import RandomSampler, StratifiedSampler
+from ltm_sampling.samplers import (
+    KNNRedundancySampler,
+    RandomSampler,
+    StratifiedSampler,
+)
 
 
 def test_random_sampler_is_exact_reproducible_and_order_preserving():
@@ -43,3 +47,26 @@ def test_regression_stratification_spans_target_distribution():
     selected_bins = pd.qcut(y.iloc[selected], q=5, labels=False)
     assert len(selected) == 20
     assert selected_bins.nunique() == 5
+
+
+def test_knn_sampler_reduces_mixed_classification_data_by_half():
+    X = pd.DataFrame(
+        {
+            "numeric": np.tile([0.0, 0.1, 10.0, 10.1], 5),
+            "category": pd.Series(["a", "a", "b", "b"] * 5, dtype="category"),
+        }
+    )
+    y = pd.Series([0] * 10 + [1] * 10)
+    sampler = KNNRedundancySampler(fraction=0.5, n_neighbors=3)
+
+    first = sampler.select(
+        X, y, problem_type="classification", random_state=13
+    )
+    second = sampler.select(
+        X, y, problem_type="classification", random_state=13
+    )
+
+    assert len(first) == 10
+    assert len(np.unique(first)) == 10
+    assert set(y.iloc[first]) == {0, 1}
+    assert np.array_equal(first, second)

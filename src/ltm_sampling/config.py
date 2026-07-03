@@ -152,7 +152,7 @@ def _validate(config: BenchmarkConfig) -> None:
     if len(full_samplers) != 1:
         raise ValueError("Exactly one full sampler is required as the paired baseline")
     for sampler in config.samplers:
-        if sampler.method not in {"full", "random", "stratified"}:
+        if sampler.method not in {"full", "knn", "random", "stratified"}:
             raise ValueError(
                 f"{sampler.name}: unknown sampler method {sampler.method!r}"
             )
