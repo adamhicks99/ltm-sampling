@@ -1,0 +1,112 @@
+# Oracle-gap sweep: the same sampler sweep on every dataset so a post-hoc
+# analysis can compare the best per-dataset choice (oracle) against the best
+# single fixed policy applied portfolio-wide.
+#
+# knn only appears at fraction >= 0.5 because KNNRedundancySampler currently
+# refuses more aggressive pruning; random and stratified cover 0.25 as well.
+
+[benchmark]
+seeds = [0, 1]
+warmup_runs = 0
+output = "experiments/002-oracle-gap-sweep/results/raw.jsonl"
+fail_fast = false
+
+[model]
+backend = "pytorch"
+preset = "default"
+n_estimators = 4
+batch_size = 1
+device = "auto"
+
+[[datasets]]
+name = "diabetes"
+openml_task_id = 363629
+problem_type = "classification"
+repeat = 0
+fold = 0
+sample = 0
+
+[[datasets]]
+name = "maternal_health_risk"
+openml_task_id = 363685
+problem_type = "classification"
+repeat = 0
+fold = 0
+sample = 0
+
+[[datasets]]
+name = "concrete_compressive_strength"
+openml_task_id = 363625
+problem_type = "regression"
+repeat = 0
+fold = 0
+sample = 0
+
+[[datasets]]
+name = "airfoil_self_noise"
+openml_task_id = 363612
+problem_type = "regression"
+repeat = 0
+fold = 0
+sample = 0
+
+[[samplers]]
+name = "full"
+method = "full"
+
+[[samplers]]
+name = "random-25"
+method = "random"
+fraction = 0.25
+
+[[samplers]]
+name = "random-50"
+method = "random"
+fraction = 0.50
+
+[[samplers]]
+name = "random-75"
+method = "random"
+fraction = 0.75
+
+[[samplers]]
+name = "stratified-25"
+method = "stratified"
+fraction = 0.25
+
+[samplers.params]
+regression_bins = 10
+
+[[samplers]]
+name = "stratified-50"
+method = "stratified"
+fraction = 0.50
+
+[samplers.params]
+regression_bins = 10
+
+[[samplers]]
+name = "stratified-75"
+method = "stratified"
+fraction = 0.75
+
+[samplers.params]
+regression_bins = 10
+
+[[samplers]]
+name = "knn-50"
+method = "knn"
+fraction = 0.50
+
+[samplers.params]
+n_neighbors = 5
+regression_bins = 10
+
+[[samplers]]
+name = "knn-75"
+method = "knn"
+fraction = 0.75
+
+[samplers.params]
+n_neighbors = 5
+regression_bins = 10
