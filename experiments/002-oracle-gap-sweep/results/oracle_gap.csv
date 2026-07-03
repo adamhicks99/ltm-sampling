@@ -1,0 +1,5 @@
+dataset,oracle_sampler,oracle_retention,oracle_speedup,best_fixed_sampler,best_fixed_retention_here,gap
+airfoil_self_noise,knn-50,0.690328,1.807136,knn-50,0.690328,+0.000000
+concrete_compressive_strength,stratified-50,0.872546,1.839578,knn-50,0.807095,+0.065451
+diabetes,stratified-25,1.030823,2.416491,knn-50,0.992294,+0.038528
+maternal_health_risk,knn-50,0.928087,1.741242,knn-50,0.928087,+0.000000
