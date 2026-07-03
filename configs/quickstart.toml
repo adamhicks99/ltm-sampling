@@ -1,0 +1,40 @@
+[benchmark]
+seeds = [0]
+warmup_runs = 0
+output = "outputs/quickstart.jsonl"
+fail_fast = true
+
+[model]
+backend = "pytorch"
+preset = "default"
+n_estimators = 4
+batch_size = 1
+device = "auto"
+
+[[datasets]]
+name = "maternal_health_risk"
+openml_task_id = 363685
+problem_type = "classification"
+repeat = 0
+fold = 0
+
+[[datasets]]
+name = "airfoil_self_noise"
+openml_task_id = 363612
+problem_type = "regression"
+repeat = 0
+fold = 0
+
+[[samplers]]
+name = "full"
+method = "full"
+
+[[samplers]]
+name = "random-50"
+method = "random"
+fraction = 0.50
+
+[[samplers]]
+name = "stratified-50"
+method = "stratified"
+fraction = 0.50

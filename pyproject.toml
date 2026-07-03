@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ltm-sampling"
+version = "0.1.0"
+description = "Paired sampling benchmarks for large tabular models"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = { file = "LICENSE" }
+authors = [{ name = "Adam Hicks" }]
+dependencies = [
+  "numpy>=2.0",
+  "openml>=0.15",
+  "pandas>=2.2",
+  "scikit-learn>=1.6",
+]
+
+[project.optional-dependencies]
+pytorch = [
+  "tabfm[pytorch] @ git+https://github.com/google-research/tabfm.git@5ee6cd7829b5a4fdfd7e2a266259df733d40d036",
+]
+jax = [
+  "tabfm[jax] @ git+https://github.com/google-research/tabfm.git@5ee6cd7829b5a4fdfd7e2a266259df733d40d036",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "ruff>=0.11",
+]
+
+[project.scripts]
+ltm-sampling = "ltm_sampling.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ltm_sampling"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

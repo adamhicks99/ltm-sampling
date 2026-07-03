@@ -1,0 +1,74 @@
+[benchmark]
+seeds = [0, 1, 2]
+warmup_runs = 0
+output = "outputs/tabarena-small.jsonl"
+fail_fast = false
+
+[model]
+backend = "pytorch"
+preset = "default"
+n_estimators = 32
+batch_size = 1
+device = "auto"
+
+# Small, TabFM-compatible TabArena tasks spanning binary classification,
+# multiclass classification, regression, numeric, mixed, and categorical data.
+[[datasets]]
+name = "diabetes"
+openml_task_id = 363629
+problem_type = "classification"
+
+[[datasets]]
+name = "maternal_health_risk"
+openml_task_id = 363685
+problem_type = "classification"
+
+[[datasets]]
+name = "splice"
+openml_task_id = 363702
+problem_type = "classification"
+
+[[datasets]]
+name = "airfoil_self_noise"
+openml_task_id = 363612
+problem_type = "regression"
+
+[[datasets]]
+name = "concrete_compressive_strength"
+openml_task_id = 363625
+problem_type = "regression"
+
+[[datasets]]
+name = "wine_quality"
+openml_task_id = 363708
+problem_type = "regression"
+
+[[samplers]]
+name = "full"
+method = "full"
+
+[[samplers]]
+name = "random-25"
+method = "random"
+fraction = 0.25
+
+[[samplers]]
+name = "random-50"
+method = "random"
+fraction = 0.50
+
+[[samplers]]
+name = "stratified-25"
+method = "stratified"
+fraction = 0.25
+
+[samplers.params]
+regression_bins = 10
+
+[[samplers]]
+name = "stratified-50"
+method = "stratified"
+fraction = 0.50
+
+[samplers.params]
+regression_bins = 10
